@@ -13,21 +13,22 @@ namespace GankCompanion_backend.infrastructure
 {
     public class FireBasePartyRepository : PartyRepository
     {
-        private static string DATABSE_ENDPOINT = "https://gankcompanion-default-rtdb.firebaseio.com/";
-        private readonly string ENDPOINT_URL = DATABSE_ENDPOINT + "party.json";
-        private static readonly HttpClient client = new HttpClient();//should share it through whole application.
-                                                                     //https://docs.microsoft.com/en-us/azure/architecture/antipatterns/improper-instantiation/
+        private readonly string DATABSE_ENDPOINT = "https://gankcompanion-default-rtdb.firebaseio.com/";
+        private string ENDPOINT_URL;
+        private static readonly HttpClient client = new HttpClient();
 
-        readonly IFirebaseConfig firebaseConfig = new FirebaseConfig
-        {
-            AuthSecret = "",
-            BasePath = DATABSE_ENDPOINT,
-        };
+        private IFirebaseConfig firebaseConfig;
+
         private IFirebaseClient firebaseClient;
 
         public FireBasePartyRepository()
         {
-
+            this.ENDPOINT_URL = DATABSE_ENDPOINT + "party.json";
+            this.firebaseConfig = new FirebaseConfig
+            {
+                AuthSecret = "",
+                BasePath = DATABSE_ENDPOINT,
+            };
         }
 
         public string Save(Party party)
