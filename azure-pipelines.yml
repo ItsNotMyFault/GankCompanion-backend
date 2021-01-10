@@ -39,11 +39,6 @@ steps:
   inputs:
     SearchPattern: '**\bin\**\*.pdb'
   continueOnError: true
-  
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'   
-  inputs:
-    PathtoPublish: '$(build.artifactsstagingdirectory)'
-  condition: succeededOrFailed()
+
   
       
