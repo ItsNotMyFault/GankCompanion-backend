@@ -13,5 +13,9 @@ namespace GankCompanion_backend.domain
             this.Id = Guid.Parse(Id);
         }
         public Guid Id { get; set; }
+        public string FormattedId()
+        {
+            return this.Id.ToString();
+        }
     }
 }

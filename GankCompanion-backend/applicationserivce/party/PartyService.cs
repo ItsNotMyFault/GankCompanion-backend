@@ -28,7 +28,7 @@ namespace GankCompanion_backend.applicationserivce
         }
         public void PlayerJoinedParty(PartyJoinedRequest partyJoinedRequest)
         {
-            Party party = partyRepository.FindbyId(partyJoinedRequest.PartyId);
+            Party party = partyRepository.FindPartyByPartyID(partyJoinedRequest.PartyId);
             partyRepository.DeletebyId(partyJoinedRequest.PartyId);
             party.PlayerJoinParty(partyJoinedRequest.PlayerJoinedId, partyJoinedRequest.PlayerJoinedName);
             partyRepository.Save(party);

@@ -79,6 +79,22 @@ namespace GankCompanion_backend.infrastructure
         }
 
 
+        public Party FindPartyByPartyID(string partyID)
+        {
+
+            firebaseClient = new FirebaseClient(firebaseConfig);
+            FirebaseResponse response = firebaseClient.Get("party");
+            if (response.Body == "null") throw new Exception("This player has never been in a party.");
+            Dictionary<string, Party> data = JsonConvert.DeserializeObject<Dictionary<string, Party>>(response.Body);
+
+            List<Party> parties = data.Select(i =>
+            {
+                i.Value.FirebaseId = new FirebaseUniqueID(i.Key);
+                return i.Value;
+            }).ToList();
+            return parties.FirstOrDefault(x => x.PartyId.FormattedId().Equals(partyID));
+        }
+
         public Party FindbyId(string firebaseUniqueId)
         {
             firebaseClient = new FirebaseClient(firebaseConfig);
