@@ -79,6 +79,8 @@ namespace GankCompanion_backend.domain
         public void PlayerLeaveParty(string PlayerLeavingId)
         {
             PartyMember ptMember = this.PartyMemberList.Find(x => x.partyMemberId.Equals(PlayerLeavingId));
+            if (ptMember == null)
+                throw new Exception("Player is not in party");
             if (ptMember.IsPartyLead)
             {
                 CloseParty();
@@ -120,7 +122,8 @@ namespace GankCompanion_backend.domain
                     joinedTime = partyMember.JoinedParty.ToString(),
                     percentTimeInParty = partyMember.GetPercentageOfTimeInParty(partyDuration),
                     playerName = partyMember.player.Name,
-                    timeInParty = partyMember.GetPresenceTimeInParty().ToString()
+                    timeInParty = partyMember.GetPresenceTimeInParty().ToString(),
+                    playerIsInParty = partyMember.isInParty
                 };
                 partyMembersResponse.partyMemberResponses.Add(partyMemberResponse);
             }
@@ -145,11 +148,11 @@ namespace GankCompanion_backend.domain
         {
             if (IsActive)
             {
-                return (DateTime.Now - PartyStartTime).Duration().TotalMinutes;
+                return DateTime.Now.Subtract(PartyStartTime).TotalMinutes;
             }
             else
             {
-                return (PartyEndTime - PartyStartTime).Duration().TotalMinutes;
+                return PartyEndTime.Subtract(PartyStartTime).TotalMinutes;
             }
 
         }

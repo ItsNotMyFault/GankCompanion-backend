@@ -29,15 +29,15 @@ namespace GankCompanion_backend.applicationserivce
         public void PlayerJoinedParty(PartyJoinedRequest partyJoinedRequest)
         {
             Party party = partyRepository.FindPartyByPartyID(partyJoinedRequest.PartyId);
-            partyRepository.DeletebyId(partyJoinedRequest.PartyId);
+            partyRepository.DeletebyId(party.FirebaseId.Id);
             party.PlayerJoinParty(partyJoinedRequest.PlayerJoinedId, partyJoinedRequest.PlayerJoinedName);
             partyRepository.Save(party);
         }
 
         public void PlayerLeftParty(PartyLeaveRequest partyLeftRequest)
         {
-            Party party = partyRepository.FindbyId(partyLeftRequest.PartyId);
-            partyRepository.DeletebyId(partyLeftRequest.PartyId);
+            Party party = partyRepository.FindPartyByPartyID(partyLeftRequest.PartyId);
+            partyRepository.DeletebyId(party.FirebaseId.Id);
             party.PlayerLeaveParty(partyLeftRequest.PlayerLeftId);
             partyRepository.Save(party);
         }
