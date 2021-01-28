@@ -1,5 +1,4 @@
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\GankCompanion-backend.exe
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\GankCompanion-backend.deps.json
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\GankCompanion-backend.runtimeconfig.json
@@ -26,3 +25,4 @@ C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-ba
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\obj\Debug\netcoreapp3.1\GankCompanion-backend.csproj.CoreCompileInputs.cache
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\obj\Debug\netcoreapp3.1\GankCompanion-backend.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\bin\Debug\netcoreapp3.1\appsettings.Production.json
+C:\Users\Alexis\Documents\DeveloppmentProjects\ProjetsPersonnel\GankCompanion-backend\GankCompanion-backend\obj\Debug\netcoreapp3.1\scopedcss\bundle\GankCompanion-backend.styles.css

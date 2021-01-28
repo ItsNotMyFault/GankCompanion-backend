@@ -5,13 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace GankCompanion_backend
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
         }
@@ -24,7 +23,7 @@ namespace GankCompanion_backend
         {
             services.AddControllers();
             services.AddTransient<PartyService>();
-            services.AddTransient<PartyRepository>(w => new FireBasePartyRepository());
+            services.AddTransient<IPartyRepository>(w => new FireBasePartyRepository());
 
 
             services.AddCors(options =>

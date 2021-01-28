@@ -1,4 +1,5 @@
 ﻿using GankCompanion_backend.applicationserivce.party;
+using GankCompanion_backend.applicationserivce.party.request;
 using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.applicationserivce.session;
 using GankCompanion_backend.domain;
@@ -12,9 +13,10 @@ namespace GankCompanion_backend.applicationserivce
 {
     public class PartyService
     {
-        private readonly PartyRepository partyRepository;
-        private double minutesIn1Day = 1440;
-        public PartyService(PartyRepository partyRepository)
+        private readonly IPartyRepository partyRepository;
+        private readonly double minutesIn1Day = 1440;
+        private readonly int MAX_PARTY_LIST_COUNT = 100;
+        public PartyService(IPartyRepository partyRepository)
         {
             this.partyRepository = partyRepository;
         }
@@ -44,42 +46,39 @@ namespace GankCompanion_backend.applicationserivce
 
         public PartyListResponse GetPartyById(string partyId)
         {
-            Party party = this.partyRepository.FindbyId(partyId);
+            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
             return new PartyListResponse(party);
         }
 
         public PartyListResponse GetAllParties()
         {
+            //TODO only retrieve most recent.
             List<Party> partyList = this.partyRepository.FindAll();
-            foreach(Party party in partyList)
+            partyList = partyList.Take(MAX_PARTY_LIST_COUNT).ToList();
+            foreach (Party party in partyList)
             {
-                if (party.IsActive && party.GetPartyDuration() > minutesIn1Day)
-                {
-                    party.CloseParty();
-                    this.partyRepository.DeletebyId(party.FirebaseId.Id);
-                    this.partyRepository.Save(party);
-                }
+                CheckIfPartyExtends1Day(party);
             }
             return new PartyListResponse(partyList);
         }
 
         public PartyMembersResponse GetPartyMembers(string partyId)
         {
-            Party party = this.partyRepository.FindbyId(partyId);
+            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
 
             return party.GetPartyMembers();
         }
 
         public PartyReportResponse GetPartyReport(string partyId)
         {
-            Party party = this.partyRepository.FindbyId(partyId);
+            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
             PartyReportResponse partyReportResponse = party.GetPartyReport();
             return partyReportResponse;
         }
 
-        public PartyMembersResponse GetPartyMembersByPartyId(string playerId)
+        public PartyMembersResponse GetPartyMembersByPartyId(string partyId)
         {
-            Party party = this.partyRepository.FindbyId(playerId);
+            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
             return party.GetPartyMembers();
         }
 
@@ -88,15 +87,28 @@ namespace GankCompanion_backend.applicationserivce
             List<Party> playerInParties = this.partyRepository.FindPartiesByPlayerName(playerName);
             foreach (Party party in playerInParties)
             {
-                if (party.IsActive && party.GetPartyDuration() > minutesIn1Day)
-                {
-                    party.CloseParty();
-                    this.partyRepository.DeletebyId(party.FirebaseId.Id);
-                    this.partyRepository.Save(party);
-                }
+                CheckIfPartyExtends1Day(party);
             }
             PartyListResponse partyResponse = new PartyListResponse(playerInParties);
             return partyResponse;
+        }
+
+        public string CloseParty(PartyCloseRequest partyCloseRequest)
+        {
+            Party party = this.partyRepository.FindPartyByPartyID(partyCloseRequest.PartyId);
+            party.CloseParty();
+            this.partyRepository.DeletebyId(party.FirebaseId.Id);
+            return partyRepository.Save(party);
+        }
+
+        private void CheckIfPartyExtends1Day(Party party)
+        {
+            if (party.IsActive && party.GetPartyDuration() > minutesIn1Day)
+            {
+                party.CloseParty();
+                this.partyRepository.DeletebyId(party.FirebaseId.Id);
+                this.partyRepository.Save(party);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace GankCompanion_backend.domain
         public Player player;
         public string partyMemberId;
         public bool IsPartyLead;
-        public DateTime JoinedParty { get; set; }
+        public DateTimeWithZone JoinedParty { get; set; }
 
 
         private int joinNumber { get; set; }
@@ -52,13 +52,12 @@ namespace GankCompanion_backend.domain
             return presenceInPartyMinutes;
         }
 
-
-
         public void PlayerJoinParty()
         {
             this.isInParty = true;
-            this.JoinedParty = DateTime.Now;
-            this.timesInParty.Add(new TimeInterval(this.JoinedParty, DateTime.Now));
+            this.JoinedParty = new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local);
+            TimeInterval timeInterval = new TimeInterval(this.JoinedParty.UniversalTime, this.JoinedParty.UniversalTime);
+            this.timesInParty.Add(timeInterval);
             joinNumber++;
         }
 
@@ -66,7 +65,7 @@ namespace GankCompanion_backend.domain
         {
             this.isInParty = false;
             TimeInterval timeInterval = this.timesInParty.Last();
-            timeInterval.SetLeaveTime(DateTime.Now);
+            timeInterval.SetLeaveTime(new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local).UniversalTime);
         }
 
         public override string ToString()

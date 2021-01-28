@@ -11,11 +11,10 @@ using System.Net.Http;
 
 namespace GankCompanion_backend.infrastructure
 {
-    public class FireBasePartyRepository : PartyRepository
+    public class FireBasePartyRepository : IPartyRepository
     {
         private readonly string DATABSE_ENDPOINT = "https://gankcompanion-default-rtdb.firebaseio.com/";
-        private string ENDPOINT_URL;
-        private static readonly HttpClient client = new HttpClient();
+        private readonly string ENDPOINT_URL;
 
         private IFirebaseConfig firebaseConfig;
 
@@ -47,11 +46,16 @@ namespace GankCompanion_backend.infrastructure
             firebaseClient = new FirebaseClient(firebaseConfig);
             FirebaseResponse response = firebaseClient.Get("party");
             Dictionary<string, Party> data = JsonConvert.DeserializeObject<Dictionary<string, Party>>(response.Body);
-            List<Party> parties = data.Select(i =>
+
+            List<Party> parties = new List<Party>();
+            if (data != null)
             {
-                i.Value.FirebaseId = new FirebaseUniqueID(i.Key);
-                return i.Value;
-            }).ToList();
+                parties = data.Select(i =>
+                {
+                    i.Value.FirebaseId = new FirebaseUniqueID(i.Key);
+                    return i.Value;
+                }).ToList();
+            }
             return parties;
         }
 
@@ -95,11 +99,11 @@ namespace GankCompanion_backend.infrastructure
             return parties.FirstOrDefault(x => x.PartyId.FormattedId().Equals(partyID));
         }
 
-        public Party FindbyId(string firebaseUniqueId)
+        public Party FindbyFirebaseUniqueId(string firebaseUniqueId)
         {
             firebaseClient = new FirebaseClient(firebaseConfig);
             FirebaseResponse firebaseResponse = firebaseClient.Get("party/" + firebaseUniqueId);
-            Party party = JsonConvert.DeserializeObject<Party>(firebaseResponse.Body);
+            Party party = JsonConvert.DeserializeObject<Party>(firebaseResponse.Body); //TODO FIX new DateFormat
             if (party == null)
                 throw new Exception("This partyId doesn't exist");
             party.FirebaseId = new FirebaseUniqueID(firebaseUniqueId);
@@ -117,6 +121,7 @@ namespace GankCompanion_backend.infrastructure
 
         public void AuthenticateToFirebase(string firebaseUniqueId)
         {
+            //TODO implements credential ontoDatabase.
             firebaseClient = new FirebaseClient(firebaseConfig);
 
             //firebaseClient.CreateUser

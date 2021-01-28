@@ -8,24 +8,30 @@ namespace GankCompanion_backend.domain
     public class TimeInterval
     {
 
-        public DateTime JoinedTime { get; set; }
-        public DateTime LeaveTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
-        public TimeInterval(DateTime joinedTime, DateTime leaveTime)
+        public TimeInterval(DateTime StartTime, DateTime EndTime)
         {
-            this.JoinedTime = joinedTime;
-            this.LeaveTime = leaveTime;
+            this.StartTime = StartTime;
+            this.EndTime = EndTime;
         }
 
         public void SetLeaveTime(DateTime dateTime)
         {
-            this.LeaveTime = dateTime;
+            this.EndTime = dateTime;
         }
 
         public double GetTimeInterval()
         {
-            TimeSpan interval = (DateTime.Now - this.JoinedTime).Duration();
-            return interval.Minutes;
+            TimeSpan interval = (this.EndTime - this.StartTime).Duration();
+            double intervalInMinutes = interval.Minutes;
+            if (intervalInMinutes == 0)
+            {
+                interval = (DateTime.UtcNow - this.StartTime).Duration();
+                intervalInMinutes = interval.Minutes; 
+            }
+            return intervalInMinutes;
         }
     }
 }

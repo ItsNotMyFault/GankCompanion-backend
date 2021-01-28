@@ -2,6 +2,7 @@
 using System.Text.Json;
 using GankCompanion_backend.applicationserivce;
 using GankCompanion_backend.applicationserivce.party;
+using GankCompanion_backend.applicationserivce.party.request;
 using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.applicationserivce.session;
 using Microsoft.AspNetCore.Cors;
@@ -24,14 +25,10 @@ namespace GankCompanion_backend.Controllers
 
         [HttpGet]
         [Route("GetAllParties")]
-        public IEnumerable<PartyListResponse> GetAllParties()
+        public PartyListResponse GetAllParties()
         {
             PartyListResponse sessionResponse = this.partyService.GetAllParties();
-            List<PartyListResponse> list = new List<PartyListResponse>
-            {
-                sessionResponse
-            };
-            return list;
+            return sessionResponse;
         }
 
         [HttpGet]
@@ -74,9 +71,15 @@ namespace GankCompanion_backend.Controllers
         [Route("CreateParty")]
         public string CreateParty(PartyCreationRequest sessionRequest)
         {
-            //string jsonObject = JsonConvert.SerializeObject(sessionRequest);
-            //PartyCreationRequest item = JsonConvert.DeserializeObject<PartyCreationRequest>(jsonObject);
             string partyId = this.partyService.CreateParty(sessionRequest);
+            return partyId;
+        }
+
+        [HttpPost]
+        [Route("CloseParty")]
+        public string CloseParty(PartyCloseRequest partyCloseRequest)
+        {
+            string partyId = this.partyService.CloseParty(partyCloseRequest);
             return partyId;
         }
 

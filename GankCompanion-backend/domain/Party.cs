@@ -15,8 +15,8 @@ namespace GankCompanion_backend.domain
         public PartyID PartyId { get; set; }
         public FirebaseUniqueID FirebaseId;
         public string Name { get; set; }
-        public DateTime PartyStartTime { get; set; }
-        public DateTime PartyEndTime = DateTime.Now;
+        public DateTimeWithZone PartyStartTime { get; set; }
+        public DateTimeWithZone PartyEndTime { get; set; } 
         public List<double> ItemPriceList { get; set; }
         public List<PartyMember> PartyMemberList { get; set; }
         public bool IsActive;
@@ -29,7 +29,8 @@ namespace GankCompanion_backend.domain
         public Party(PartyCreationRequest partyCreationRequest)
         {
             this.PartyId = new PartyID(partyCreationRequest.PartyId);
-            this.PartyStartTime = Convert.ToDateTime(partyCreationRequest.PartyStartTime);
+            this.PartyStartTime = new DateTimeWithZone(partyCreationRequest.PartyStartTime, TimeZoneInfo.Local);
+            //this.PartyEndTime = new DateTimeWithZone(DateTime.UtcNow, TimeZoneInfo.Local);
             this.IsActive = true;
             this.PartyMemberList = new List<PartyMember>
             {
@@ -37,6 +38,8 @@ namespace GankCompanion_backend.domain
                 CreatePartyMember(partyCreationRequest.Player2Id, partyCreationRequest.Player2Name, false)
             };
         }
+        //TODO fix dates...
+ 
 
         public string GetPlayers()
         {
@@ -95,7 +98,7 @@ namespace GankCompanion_backend.domain
         {
             SetAllMemberToLeftParty();
             this.IsActive = false;
-            this.PartyEndTime = DateTime.Now;
+            this.PartyEndTime = new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local);
         }
 
         public void SetAllMemberToLeftParty()
@@ -148,11 +151,11 @@ namespace GankCompanion_backend.domain
         {
             if (IsActive)
             {
-                return DateTime.Now.Subtract(PartyStartTime).TotalMinutes;
+                return DateTime.UtcNow.Subtract(PartyStartTime.UniversalTime).TotalMinutes;
             }
             else
             {
-                return PartyEndTime.Subtract(PartyStartTime).TotalMinutes;
+                return PartyEndTime.UniversalTime.Subtract(PartyStartTime.UniversalTime).TotalMinutes;
             }
 
         }
