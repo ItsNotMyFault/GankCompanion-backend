@@ -74,7 +74,7 @@ namespace GankCompanion_backend.infrastructure
             }).ToList();
             parties = parties.FindAll(x =>
             {
-                PartyMember partyMember = x.PartyMemberList.Find(x => x.player.Name.Equals(playerName)); ;
+                PartyMember partyMember = x.PartyMemberList.Where(x => x != null).ToList().Find(x => x.player.Name.Equals(playerName)); 
                 if (partyMember == null)
                     return false;
                 return true;

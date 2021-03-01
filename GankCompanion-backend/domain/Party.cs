@@ -61,7 +61,7 @@ namespace GankCompanion_backend.domain
 
         private PartyMember CreatePartyMember(string playerId, string playerName, bool isPartyLead)
         {
-            return new PartyMember(playerId, new Player(playerName), isPartyLead);
+            return new PartyMember(playerId, new Player(playerName.ToLower()), isPartyLead);
         }
 
 

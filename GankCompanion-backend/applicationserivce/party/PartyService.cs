@@ -82,11 +82,22 @@ namespace GankCompanion_backend.applicationserivce
 
         public PartyListResponse GetPartiesByPlayerName(string playerName)
         {
-            List<Party> playerInParties = this.partyRepository.FindPartiesByPlayerName(playerName);
-            foreach (Party party in playerInParties)
+            List<Party> playerInParties;
+
+            if (playerName != null && playerName != "")
             {
-                CheckIfPartyExtends1Day(party);
+
+                playerInParties = this.partyRepository.FindPartiesByPlayerName(playerName.ToLower());
+                foreach (Party party in playerInParties)
+                {
+                    CheckIfPartyExtends1Day(party);
+                }
             }
+            else
+            {
+                playerInParties = new List<Party>();
+            }
+
             PartyListResponse partyResponse = new PartyListResponse(playerInParties);
             return partyResponse;
         }
