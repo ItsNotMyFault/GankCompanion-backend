@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using GankCompanion_backend.applicationserivce;
+﻿using GankCompanion_backend.applicationserivce;
 using GankCompanion_backend.applicationserivce.party;
 using GankCompanion_backend.applicationserivce.party.request;
 using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.applicationserivce.session;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace GankCompanion_backend.Controllers
 {

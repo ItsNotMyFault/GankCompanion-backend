@@ -116,15 +116,18 @@ namespace GankCompanion_backend.domain
 
             foreach (PartyMember partyMember in this.PartyMemberList)
             {
-                PartyMemberResponse partyMemberResponse = new PartyMemberResponse()
+                if(partyMember != null)
                 {
-                    joinedTime = partyMember.JoinedParty.ToString(),
-                    percentTimeInParty = partyMember.GetPercentageOfTimeInParty(partyDuration),
-                    playerName = partyMember.player.Name,
-                    timeInParty = partyMember.GetPresenceTimeInParty().ToString("#.##"),
-                    playerIsInParty = partyMember.isInParty
-                };
-                partyMembersResponse.partyMemberResponses.Add(partyMemberResponse);
+                    PartyMemberResponse partyMemberResponse = new PartyMemberResponse()
+                    {
+                        joinedTime = partyMember.JoinedParty.ToString(),
+                        percentTimeInParty = partyMember.GetPercentageOfTimeInParty(partyDuration),
+                        playerName = partyMember.player.Name,
+                        timeInParty = partyMember.GetPresenceTimeInParty().ToString("#.##"),
+                        playerIsInParty = partyMember.isInParty
+                    };
+                    partyMembersResponse.partyMemberResponses.Add(partyMemberResponse);
+                }
             }
             return partyMembersResponse;
         }
