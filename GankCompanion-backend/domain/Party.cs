@@ -14,7 +14,7 @@ namespace GankCompanion_backend.domain
     {
         public PartyID PartyId { get; set; }
         public FirebaseUniqueID FirebaseId;
-        public TimeInterval PartyTimeInterval { get; set;  }
+        public TimeInterval PartyTimeInterval { get; set; }
         public List<PartyMember> PartyMemberList { get; set; }
         public bool IsActive;
 
@@ -40,7 +40,7 @@ namespace GankCompanion_backend.domain
 
         public string GetPlayers()
         {
-            List<string> playerNames = this.PartyMemberList.Select(x => x.player.Name).ToList();
+            List<string> playerNames = this.PartyMemberList.Where(x => x != null).Select(x => x.player.Name).ToList();
             string players = string.Join(",", playerNames);
             return players;
         }
