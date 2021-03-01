@@ -4,10 +4,8 @@ using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.applicationserivce.session;
 using GankCompanion_backend.domain;
 using GankCompanion_backend.infrastructure;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GankCompanion_backend.applicationserivce
 {
@@ -46,7 +44,7 @@ namespace GankCompanion_backend.applicationserivce
 
         public PartyListResponse GetPartyById(string partyId)
         {
-            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
+            Party party = this.partyRepository.FindPartybyFirebaseUniqueId(partyId);
             return new PartyListResponse(party);
         }
 
@@ -64,21 +62,21 @@ namespace GankCompanion_backend.applicationserivce
 
         public PartyMembersResponse GetPartyMembers(string partyId)
         {
-            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
+            Party party = this.partyRepository.FindPartybyFirebaseUniqueId(partyId);
 
             return party.GetPartyMembers();
         }
 
         public PartyReportResponse GetPartyReport(string partyId)
         {
-            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
+            Party party = this.partyRepository.FindPartybyFirebaseUniqueId(partyId);
             PartyReportResponse partyReportResponse = party.GetPartyReport();
             return partyReportResponse;
         }
 
         public PartyMembersResponse GetPartyMembersByPartyId(string partyId)
         {
-            Party party = this.partyRepository.FindbyFirebaseUniqueId(partyId);
+            Party party = this.partyRepository.FindPartybyFirebaseUniqueId(partyId);
             return party.GetPartyMembers();
         }
 

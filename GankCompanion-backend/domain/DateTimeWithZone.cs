@@ -27,14 +27,6 @@ namespace GankCompanion_backend.domain
 
         public DateTime UniversalTime { get { return utcDateTime; } }
 
-        //public TimeZoneInfo TimeZone { get { return timeZone; } }
-
-        //public DateTime LocalTime {
-        //    get {
-        //        return TimeZoneInfo.ConvertTime(utcDateTime, timeZone);
-        //    }
-        //}
-
         override
         public string ToString()
         {

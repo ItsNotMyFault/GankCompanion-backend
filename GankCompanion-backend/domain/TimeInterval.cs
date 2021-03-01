@@ -25,11 +25,11 @@ namespace GankCompanion_backend.domain
         public double GetTimeInterval()
         {
             TimeSpan interval = (this.EndTime - this.StartTime).Duration();
-            double intervalInMinutes = interval.Minutes;
+            double intervalInMinutes = interval.TotalMinutes;
             if (intervalInMinutes == 0)
             {
                 interval = (DateTime.UtcNow - this.StartTime).Duration();
-                intervalInMinutes = interval.Minutes; 
+                intervalInMinutes = interval.TotalMinutes; 
             }
             return intervalInMinutes;
         }

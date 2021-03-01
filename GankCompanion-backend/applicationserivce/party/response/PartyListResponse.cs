@@ -1,5 +1,6 @@
 ﻿using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.domain;
+using System;
 using System.Collections.Generic;
 
 namespace GankCompanion_backend.applicationserivce.session
@@ -21,7 +22,7 @@ namespace GankCompanion_backend.applicationserivce.session
         {
             PartyResponse partyResponse = new PartyResponse
             {
-                createdDate = party.PartyStartTime.ToString(),
+                createdDate = party.PartyTimeInterval.StartTime.ToString(),
                 duration = party.GetPartyDuration().ToString(),
                 isActive = party.IsActive,
                 partyFirebaseId = party.FirebaseId.Id,
@@ -38,7 +39,7 @@ namespace GankCompanion_backend.applicationserivce.session
         {
             return new PartyResponse
             {
-                createdDate = party.PartyStartTime.ToString(),
+                createdDate = party.PartyTimeInterval.StartTime.ToString(),
                 duration = party.GetPartyDuration().ToString(),
                 isActive = party.IsActive,
                 partyFirebaseId = party.FirebaseId.Id,

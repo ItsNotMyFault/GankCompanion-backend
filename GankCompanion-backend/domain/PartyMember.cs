@@ -11,11 +11,7 @@ namespace GankCompanion_backend.domain
         public Player player;
         public string partyMemberId;
         public bool IsPartyLead;
-        public DateTimeWithZone JoinedParty { get; set; }
-
-
-        private int joinNumber { get; set; }
-
+        public DateTimeWithZone JoinedParty { get; set; }//todo changer pour simple date
         public List<TimeInterval> timesInParty { get; set; }
 
 
@@ -23,11 +19,9 @@ namespace GankCompanion_backend.domain
         public PartyMember() { }
         public PartyMember(string partyMemberId, Player player, bool isPartyLead)
         {
-            joinNumber = 1;
             this.timesInParty = new List<TimeInterval>();
             this.partyMemberId = partyMemberId;
             PlayerJoinParty();
-            this.isInParty = true;
             this.player = player;
             this.IsPartyLead = isPartyLead;
         }
@@ -37,7 +31,7 @@ namespace GankCompanion_backend.domain
         {
             double partyMemberTimeInParty = GetPresenceTimeInParty();
             double partyMemberTimeInPartyPercent = (partyMemberTimeInParty * 100) / partyDuration;
-            return partyMemberTimeInPartyPercent.ToString("#.##");
+            return Math.Round(partyMemberTimeInPartyPercent, 0).ToString();
         }
 
         public double GetPresenceTimeInParty()
@@ -46,10 +40,12 @@ namespace GankCompanion_backend.domain
             foreach (TimeInterval time in this.timesInParty)
             {
                 if (time != null)
+                {
                     presenceInPartyMinutes += time.GetTimeInterval();
+                }
             }
 
-            return presenceInPartyMinutes;
+            return Math.Round(presenceInPartyMinutes, 2); 
         }
 
         public void PlayerJoinParty()
@@ -58,14 +54,14 @@ namespace GankCompanion_backend.domain
             this.JoinedParty = new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local);
             TimeInterval timeInterval = new TimeInterval(this.JoinedParty.UniversalTime, this.JoinedParty.UniversalTime);
             this.timesInParty.Add(timeInterval);
-            joinNumber++;
         }
 
         public void SetLeaveParty()
         {
             this.isInParty = false;
             TimeInterval timeInterval = this.timesInParty.Last();
-            timeInterval.SetLeaveTime(new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local).UniversalTime);
+            DateTime leaveTime = new DateTimeWithZone(DateTime.Now, TimeZoneInfo.Local).UniversalTime;
+            timeInterval.SetLeaveTime(leaveTime);
         }
 
         public override string ToString()

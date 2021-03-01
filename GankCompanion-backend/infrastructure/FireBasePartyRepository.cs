@@ -99,7 +99,7 @@ namespace GankCompanion_backend.infrastructure
             return parties.FirstOrDefault(x => x.PartyId.FormattedId().Equals(partyID));
         }
 
-        public Party FindbyFirebaseUniqueId(string firebaseUniqueId)
+        public Party FindPartybyFirebaseUniqueId(string firebaseUniqueId)
         {
             firebaseClient = new FirebaseClient(firebaseConfig);
             FirebaseResponse firebaseResponse = firebaseClient.Get("party/" + firebaseUniqueId);

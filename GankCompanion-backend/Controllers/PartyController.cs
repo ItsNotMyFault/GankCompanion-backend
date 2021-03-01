@@ -60,7 +60,7 @@ namespace GankCompanion_backend.Controllers
             return this.partyService.GetPartiesByPlayerName(playerName);
         }
 
-        [HttpGet] //TODO
+        [HttpGet]
         [Route("GetPartyMembersByPartyId")]
         public PartyMembersResponse GetPartyMembersByPartyId(string partyId)
         {
