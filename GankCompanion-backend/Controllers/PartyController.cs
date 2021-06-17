@@ -4,13 +4,15 @@ using GankCompanion_backend.applicationserivce.party.request;
 using GankCompanion_backend.applicationserivce.party.response;
 using GankCompanion_backend.applicationserivce.session;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 
 namespace GankCompanion_backend.Controllers
 {
 
     [ApiController]
     [Route("[controller]")]
-    public class PartyController : ControllerBase
+    public class PartyController : Controller
     {
         private readonly PartyService partyService;
         public PartyController(PartyService partyService)
@@ -64,34 +66,38 @@ namespace GankCompanion_backend.Controllers
 
         [HttpPost]
         [Route("CreateParty")]
-        public string CreateParty(PartyCreationRequest sessionRequest)
+        public JsonResult CreateParty(PartyCreationRequest sessionRequest)
         {
             string partyId = this.partyService.CreateParty(sessionRequest);
-            return partyId;
+            return Json(partyId);
         }
 
         [HttpPost]
         [Route("CloseParty")]
-        public string CloseParty(PartyCloseRequest partyCloseRequest)
+        public JsonResult CloseParty(PartyCloseRequest partyCloseRequest)
         {
             string partyId = this.partyService.CloseParty(partyCloseRequest);
-            return partyId;
+            return Json(partyId);
         }
 
         [HttpPost]
         [Route("JoinedParty")]
-        public string PlayerJoinedParty(PartyJoinedRequest partyJoinedRequest)
+        public JsonResult PlayerJoinedParty(PartyJoinedRequest partyJoinedRequest)
         {
+            if(partyJoinedRequest.PartyId == null)
+            {
+                throw new ArgumentException("Parameter PartyId is null");
+            }
             this.partyService.PlayerJoinedParty(partyJoinedRequest);
-            return partyJoinedRequest.PartyId;
+            return Json(partyJoinedRequest.PartyId);
         }
 
         [HttpPost]
         [Route("LeftParty")]
-        public string PlayerLeftParty(PartyLeaveRequest partyLeftRequest)
+        public JsonResult PlayerLeftParty(PartyLeaveRequest partyLeftRequest)
         {
             this.partyService.PlayerLeftParty(partyLeftRequest);
-            return partyLeftRequest.PartyId;
+            return Json(partyLeftRequest.PartyId);
         }
     }
 }

@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alexis\\Documents\\DeveloppmentProjects\\ProjetsPersonnel\\GankCompanion-backend\\GankCompanion-backend\\GankCompanion-backend.csproj": {}
+    "D:\\DeveloppmentProjects\\GankCompanionBackend\\GankCompanion-backend\\GankCompanion-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alexis\\Documents\\DeveloppmentProjects\\ProjetsPersonnel\\GankCompanion-backend\\GankCompanion-backend\\GankCompanion-backend.csproj": {
+    "D:\\DeveloppmentProjects\\GankCompanionBackend\\GankCompanion-backend\\GankCompanion-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexis\\Documents\\DeveloppmentProjects\\ProjetsPersonnel\\GankCompanion-backend\\GankCompanion-backend\\GankCompanion-backend.csproj",
+        "projectUniqueName": "D:\\DeveloppmentProjects\\GankCompanionBackend\\GankCompanion-backend\\GankCompanion-backend.csproj",
         "projectName": "GankCompanion-backend",
-        "projectPath": "C:\\Users\\Alexis\\Documents\\DeveloppmentProjects\\ProjetsPersonnel\\GankCompanion-backend\\GankCompanion-backend\\GankCompanion-backend.csproj",
-        "packagesPath": "C:\\Users\\Alexis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexis\\Documents\\DeveloppmentProjects\\ProjetsPersonnel\\GankCompanion-backend\\GankCompanion-backend\\obj\\",
+        "projectPath": "D:\\DeveloppmentProjects\\GankCompanionBackend\\GankCompanion-backend\\GankCompanion-backend.csproj",
+        "packagesPath": "C:\\Users\\Alexi\\.nuget\\packages\\",
+        "outputPath": "D:\\DeveloppmentProjects\\GankCompanionBackend\\GankCompanion-backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Alexis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Alexi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -51,7 +46,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             }
           },
           "imports": [
@@ -72,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

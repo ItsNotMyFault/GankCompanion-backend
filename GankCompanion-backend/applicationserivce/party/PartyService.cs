@@ -104,7 +104,7 @@ namespace GankCompanion_backend.applicationserivce
 
         public string CloseParty(PartyCloseRequest partyCloseRequest)
         {
-            Party party = this.partyRepository.FindPartyByPartyID(partyCloseRequest.PartyId);
+            Party party = this.partyRepository.FindPartybyFirebaseUniqueId(partyCloseRequest.PartyId);
             party.CloseParty();
             this.partyRepository.DeletebyId(party.FirebaseId.Id);
             return partyRepository.Save(party);
